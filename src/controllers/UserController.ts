@@ -10,7 +10,8 @@ export class UserController {
     async createUser(req: Request, res: Response): Promise<Response> {
         try {
             const { name, email } = req.body;
-            const user = await this.userService.createUser(name, email);
+            const data = { name, email };
+            const user = await this.userService.createUser(data);
             return res.status(201).json(user);
         } catch (err: any) {
             return res.status(400).json({ error: err.message });
