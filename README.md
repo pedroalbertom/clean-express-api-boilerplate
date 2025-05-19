@@ -3,7 +3,7 @@
 
 ## Descrição
 
-Boilerplate para API modularizada utilizando Express, TypeScript e TypeORM, com foco em separação clara de responsabilidades, arquitetura organizada e código manutenível.
+Boilerplate para API modularizada utilizando Express, TypeScript e TypeORM, baseado na arquitetura MVC tradicional com separação clara de responsabilidades. Inclui organização em camadas de domínio com entities (modelos), repositories para acesso a dados, services para lógica de negócio, controllers para tratamento das requisições, e rotas definidas de forma modular. Foco em código limpo, arquitetura organizada e fácil manutenção.
 
 ---
 
@@ -38,7 +38,7 @@ Boilerplate para API modularizada utilizando Express, TypeScript e TypeORM, com 
   Middleware global para captura e formatação de erros.
 
 - **src/shared/utils/email**  
-  Utilitário para envio de emails (exemplo de utilitário genérico).
+  Utilitário para validação de emails (exemplo de utilitário genérico).
 
 - **app.ts**  
   Configuração principal do Express e aplicação dos middlewares e rotas.
