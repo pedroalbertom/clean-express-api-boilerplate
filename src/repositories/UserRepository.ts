@@ -1,3 +1,6 @@
+// File: src/repositories/UserRepository.ts
+// Description: This file implements the IUserRepository interface, providing methods to interact with the User entity in the database.
+// It uses TypeORM to perform CRUD operations on the User entity.
 
 import { User } from "../entities/User";
 import { Repository } from "typeorm";

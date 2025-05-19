@@ -1,3 +1,6 @@
+// File: src/config/DataSource.ts
+// Description: This file sets up the SQLite database connection using TypeORM.
+
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "../entities/User";

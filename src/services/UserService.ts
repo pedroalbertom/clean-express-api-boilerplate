@@ -1,3 +1,8 @@
+// File: src/services/UserService.ts
+// Description: This file contains the implementation of the UserService class, which handles user-related business logic.
+// It interacts with the IUserRepository interface to perform CRUD operations on user data.
+// It includes methods for creating a user, getting all users, getting a user by ID, and getting a user by email.
+
 import { IUserService } from "./IUserService";
 import { User } from "../entities/User";
 import { IUserRepository } from "../repositories/IUserRepository";

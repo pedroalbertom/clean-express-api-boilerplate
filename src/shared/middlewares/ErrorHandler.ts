@@ -1,3 +1,9 @@
+// File: src/shared/middlewares/ErrorHandler.ts
+// Description: This file defines the error handling middleware for the Express.js application.
+// This middleware captures errors thrown in the application and sends a structured response to the client.
+// It checks the type of error and responds with appropriate status codes and messages.
+// It also logs the error to the console for debugging purposes.
+
 import { Request, Response, NextFunction } from "express";
 
 export function errorHandler(
