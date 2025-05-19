@@ -1,25 +1,35 @@
 import { IUserService } from "./IUserService";
 import { User } from "../entities/User";
 import { IUserRepository } from "../repositories/IUserRepository";
+import { isValidEmail } from "../shared/utils/Email";
 
 export class UserService implements IUserService {
     constructor(private userRepository: IUserRepository) { }
 
     async createUser(name: string, email: string): Promise<User> {
         if (!name || !email) throw new Error("Name and email are required");
+        if (!isValidEmail(email)) throw new Error("Invalid email format");
 
         const existingUser = await this.userRepository.findByEmail(email);
         if (existingUser) throw new Error("Email already in use");
 
         const user = new User(name, email);
-        return await this.userRepository.save(user);
+        return this.userRepository.save(user);
     }
 
     async getAllUsers(): Promise<User[]> {
-        return await this.userRepository.findAll();
+        return this.userRepository.findAll();
     }
 
     async getUserById(id: number): Promise<User | null> {
-        return await this.userRepository.findById(id);
+        if (!Number.isInteger(id) || id <= 0) throw new Error("Invalid user ID");
+        return this.userRepository.findById(id);
+    }
+
+    async getUserByEmail(email: string): Promise<User | null> {
+        if (!email) throw new Error("Email is required");
+        if (!isValidEmail(email)) throw new Error("Invalid email format");
+
+        return this.userRepository.findByEmail(email);
     }
 }
