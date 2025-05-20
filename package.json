@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/main/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/main/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
