@@ -7,7 +7,7 @@
 
 import "reflect-metadata";
 import dotenv from "dotenv";
-import { AppDataSource } from "./config/DataSource";
+import { AppDataSource } from "../config/DataSource";
 import app from "./app";
 
 dotenv.config();

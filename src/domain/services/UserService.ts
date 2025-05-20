@@ -3,11 +3,11 @@
 // It interacts with the IUserRepository interface to perform CRUD operations on user data.
 // It includes methods for creating a user, getting all users, getting a user by ID, and getting a user by email.
 
-import { IUserService } from "./IUserService";
+import { CreateUserInput, UserOutput, UserListOutput } from "../../application/dtos/User";
+import { isValidEmail } from "../../shared/utils/Email";
 import { User } from "../entities/User";
 import { IUserRepository } from "../repositories/IUserRepository";
-import { isValidEmail } from "../shared/utils/Email";
-import { CreateUserInput, UserListOutput, UserOutput } from "../dtos/User";
+import { IUserService } from "./IUserService";
 
 export class UserService implements IUserService {
     constructor(private userRepository: IUserRepository) { }

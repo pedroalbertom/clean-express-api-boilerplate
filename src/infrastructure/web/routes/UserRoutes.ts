@@ -4,8 +4,8 @@
 
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
-import { UserService } from "../services/UserService";
-import { UserRepository } from "../repositories/UserRepository";
+import { UserService } from "../../../domain/services/UserService";
+import { UserRepository } from "../../database/repositories/UserRepository";
 
 const router = Router();
 const userRepository = new UserRepository();

@@ -2,10 +2,11 @@
 // Description: This file implements the IUserRepository interface, providing methods to interact with the User entity in the database.
 // It uses TypeORM to perform CRUD operations on the User entity.
 
-import { User } from "../entities/User";
 import { Repository } from "typeorm";
-import { IUserRepository } from "./IUserRepository";
-import { AppDataSource } from "../config/DataSource";
+import { AppDataSource } from "../../../config/DataSource";
+import { User } from "../../../domain/entities/User";
+import { IUserRepository } from "../../../domain/repositories/IUserRepository";
+
 
 export class UserRepository implements IUserRepository {
     private repo: Repository<User>;

@@ -9,8 +9,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import userRoutes from "./routes/UserRoutes";
-import { errorHandler } from "./shared/middlewares/ErrorHandler";
+import UserRoutes from "../infrastructure/web/routes/UserRoutes";
+import { errorHandler } from "../infrastructure/web/middlewares/ErrorHandler";
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api/users", userRoutes);
+app.use("/api/users", UserRoutes);
 
 app.get("/health", (_req, res) => {
     res.status(200).json({ status: "ok" });

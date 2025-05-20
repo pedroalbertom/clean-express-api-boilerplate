@@ -4,7 +4,8 @@
 // This interface is implemented by the UserService class, which contains the business logic for user operations.
 // It is used to decouple the service layer from the controller layer, allowing for better separation of concerns and easier testing.
 
-import { CreateUserInput, UserListOutput, UserOutput } from "../dtos/User";
+import { CreateUserInput, UserListOutput, UserOutput } from "../../application/dtos/User";
+
 
 export interface IUserService {
     createUser(data: CreateUserInput): Promise<UserOutput>;

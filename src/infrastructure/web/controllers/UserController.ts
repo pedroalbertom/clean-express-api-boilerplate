@@ -2,7 +2,7 @@
 // Description: This file defines the UserController class, which handles HTTP requests related to user operations.
 
 import { Request, Response } from "express";
-import { IUserService } from "../services/IUserService";
+import { IUserService } from "../../../domain/services/IUserService";
 
 export class UserController {
     constructor(private userService: IUserService) { }
