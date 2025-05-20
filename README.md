@@ -19,14 +19,17 @@ src/
 │   ├── dtos/
 │   └── services/
 ├── infrastructure/      # Implementações técnicas (ORM, banco, provedores)
+│   ├── config/
 │   └── database/
 │       ├── entities/
 │       └── repositories/
-│   └── web/
+├── interface/           # Implementações técnicas (ORM, banco, provedores)
 │       ├── controllers/
-│       ├── middlewares/
 │       └── routes/
-├── shared/              # Erros, utilitários genéricos
+├── shared/
+│       ├── errors/
+│       ├── middlewares/
+│       └── utils/
 └── main/                # Ponto de entrada da aplicação (server, app)
 ```
 
