@@ -1,4 +1,9 @@
-import { CreateUserInput, UserOutput, UserListOutput } from "../../application/dtos/User";
+import {
+    CreateUserInput,
+    UpdateUserInput,
+    UserListOutput,
+    UserOutput,
+} from "../../application/dtos/User";
 import { isValidEmail } from "../../shared/utils/Email";
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
@@ -15,7 +20,6 @@ export class UserService implements IUserService {
         if (existingUser) throw new Error("Email already in use");
 
         const user = new User(0, data.name, data.email);
-
         const saved = await this.userRepository.save(user);
 
         return {
@@ -27,13 +31,11 @@ export class UserService implements IUserService {
 
     async getAllUsers(): Promise<UserListOutput> {
         const users = await this.userRepository.findAll();
-
         const userList: UserOutput[] = users.map(user => ({
             id: user.id,
             name: user.name,
             email: user.email,
         }));
-
         return { users: userList };
     }
 
@@ -48,15 +50,30 @@ export class UserService implements IUserService {
         } : null;
     }
 
-    async getUserByEmail(email: string): Promise<UserOutput | null> {
-        if (!email) throw new Error("Email is required");
-        if (!isValidEmail(email)) throw new Error("Invalid email format");
+    async updateUser(id: number, data: UpdateUserInput): Promise<UserOutput> {
+        const user = await this.userRepository.findById(id);
+        if (!user) throw new Error("User not found");
 
-        const user = await this.userRepository.findByEmail(email);
-        return user ? {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-        } : null;
+        if (data.email && !isValidEmail(data.email)) {
+            throw new Error("Invalid email format");
+        }
+
+        user.name = data.name ?? user.name;
+        user.email = data.email ?? user.email;
+
+        const updated = await this.userRepository.save(user);
+
+        return {
+            id: updated.id,
+            name: updated.name,
+            email: updated.email,
+        };
+    }
+
+    async deleteUser(id: number): Promise<void> {
+        const user = await this.userRepository.findById(id);
+        if (!user) throw new Error("User not found");
+
+        await this.userRepository.delete(id);
     }
 }

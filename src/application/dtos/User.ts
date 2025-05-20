@@ -3,6 +3,11 @@ export type CreateUserInput = {
     email: string;
 };
 
+export type UpdateUserInput = {
+    name?: string;
+    email?: string;
+};
+
 export type UserOutput = {
     id: number;
     name: string;

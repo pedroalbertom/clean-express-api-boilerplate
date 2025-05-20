@@ -17,6 +17,17 @@ export class UserRepository implements IUserRepository {
         return this.toDomain(saved);
     }
 
+    async update(user: User): Promise<User> {
+        const existing = await this.repo.findOneBy({ id: user.id });
+        if (!existing) throw new Error("User not found");
+        const updated = await this.repo.save(this.toEntity(user));
+        return this.toDomain(updated);
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.repo.delete(id);
+    }
+
     async findAll(): Promise<User[]> {
         const users = await this.repo.find();
         return users.map(this.toDomain);
