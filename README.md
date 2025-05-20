@@ -3,7 +3,16 @@
 
 ## Descrição
 
-Boilerplate para API modularizada utilizando Express, TypeScript e TypeORM, baseado na arquitetura MVC tradicional com separação clara de responsabilidades. Inclui organização em camadas de domínio com entities (modelos), repositories para acesso a dados, services para lógica de negócio, controllers para tratamento das requisições, e rotas definidas de forma modular. Foco em código limpo, arquitetura organizada e fácil manutenção.
+Boilerplate para API REST com Express, TypeScript e TypeORM. Estrutura modular baseada em princípios de Clean Architecture e DDD simplificado. 
+Organização por camadas:
+
+entities/: modelos do domínio (TypeORM).
+repositories/: abstração de acesso a dados.
+services/: lógica de negócio.
+controllers/: tratamento de requisições.
+routes/: definição das rotas.
+
+Foco em separação de responsabilidades, manutenibilidade e boas práticas.
 
 ---
 

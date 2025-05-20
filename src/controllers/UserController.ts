@@ -5,13 +5,14 @@ import { Request, Response } from "express";
 import { IUserService } from "../services/IUserService";
 
 export class UserController {
-    constructor(private userService: IUserService) {}
+    constructor(private userService: IUserService) { }
 
     async createUser(req: Request, res: Response): Promise<Response> {
         try {
             const { name, email } = req.body;
             const data = { name, email };
             const user = await this.userService.createUser(data);
+
             return res.status(201).json(user);
         } catch (err: any) {
             return res.status(400).json({ error: err.message });
@@ -21,6 +22,7 @@ export class UserController {
     async getAllUsers(_req: Request, res: Response): Promise<Response> {
         try {
             const users = await this.userService.getAllUsers();
+
             return res.status(200).json(users);
         } catch (err: any) {
             return res.status(500).json({ error: "Internal server error" });
@@ -31,9 +33,9 @@ export class UserController {
         try {
             const id = Number(req.params.id);
             const user = await this.userService.getUserById(id);
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
+
+            if (!user) return res.status(404).json({ error: "User not found" });
+
             return res.status(200).json(user);
         } catch (err: any) {
             return res.status(400).json({ error: err.message });
@@ -44,9 +46,9 @@ export class UserController {
         try {
             const email = req.params.email;
             const user = await this.userService.getUserByEmail(email);
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
+
+            if (!user) return res.status(404).json({ error: "User not found" });
+
             return res.status(200).json(user);
         } catch (err: any) {
             return res.status(400).json({ error: err.message });
