@@ -11,16 +11,20 @@ import { AppError } from "../../shared/errors/AppError";
 export class UserController {
     constructor(private userService: IUserService) { }
 
+    private handleError(err: any, res: Response): Response {
+        if (err instanceof AppError) {
+            return res.status(err.statusCode).json({ error: err.message });
+        }
+        return res.status(500).json({ error: "Internal server error" });
+    }
+
     async createUser(req: Request, res: Response): Promise<Response> {
         try {
             const data: CreateUserInput = req.body;
             const user: UserOutput = await this.userService.createUser(data);
             return res.status(201).json(user);
         } catch (err: any) {
-            if (err instanceof AppError) {
-                return res.status(err.statusCode).json({ error: err.message });
-            }
-            return res.status(500).json({ error: "Internal server error" });
+            return this.handleError(err, res);
         }
     }
 
@@ -29,7 +33,7 @@ export class UserController {
             const users: UserListOutput = await this.userService.getAllUsers();
             return res.status(200).json(users);
         } catch (err: any) {
-            return res.status(500).json({ error: "Internal server error" });
+            return this.handleError(err, res);
         }
     }
 
@@ -43,10 +47,7 @@ export class UserController {
 
             return res.status(200).json(user);
         } catch (err: any) {
-            if (err instanceof AppError) {
-                return res.status(err.statusCode).json({ error: err.message });
-            }
-            return res.status(500).json({ error: "Internal server error" });
+            return this.handleError(err, res);
         }
     }
 
@@ -59,10 +60,7 @@ export class UserController {
             const updatedUser: UserOutput = await this.userService.updateUser(id, data);
             return res.status(200).json(updatedUser);
         } catch (err: any) {
-            if (err instanceof AppError) {
-                return res.status(err.statusCode).json({ error: err.message });
-            }
-            return res.status(500).json({ error: "Internal server error" });
+            return this.handleError(err, res);
         }
     }
 
@@ -74,10 +72,7 @@ export class UserController {
             await this.userService.deleteUser(id);
             return res.status(204).send();
         } catch (err: any) {
-            if (err instanceof AppError) {
-                return res.status(err.statusCode).json({ error: err.message });
-            }
-            return res.status(500).json({ error: "Internal server error" });
+            return this.handleError(err, res);
         }
     }
 }
