@@ -1,8 +1,8 @@
 import { Repository } from "typeorm";
-import { AppDataSource } from "../../../config/DataSource";
 import { UserEntity } from "../entities/UserEntity";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository";
 import { User } from "../../../domain/entities/User";
+import { AppDataSource } from "../../config/DataSource";
 
 export class UserRepository implements IUserRepository {
     private repo: Repository<UserEntity>;

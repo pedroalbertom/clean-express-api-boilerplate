@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import UserRoutes from "../infrastructure/web/routes/UserRoutes";
-import { errorHandler } from "../infrastructure/web/middlewares/ErrorHandler";
+import UserRoutes from "../interface/routes/UserRoutes";
+import { errorHandler } from "../shared/middlewares/ErrorHandler";
 
 const app = express();
 
