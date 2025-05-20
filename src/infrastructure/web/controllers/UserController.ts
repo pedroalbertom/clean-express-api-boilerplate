@@ -1,6 +1,3 @@
-// File: src/controllers/UserController.ts
-// Description: This file defines the UserController class, which handles HTTP requests related to user operations.
-
 import { Request, Response } from "express";
 import { IUserService } from "../../../domain/services/IUserService";
 

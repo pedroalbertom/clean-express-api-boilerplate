@@ -1,7 +1,3 @@
-// File: src/routes/UserRoutes.ts
-// Description: This file defines the routes for user-related operations, such as creating a user, getting all users, and getting a user by ID or email.
-// It uses Express.js to define the routes and controllers for handling HTTP requests.
-
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
 import { UserService } from "../../../domain/services/UserService";

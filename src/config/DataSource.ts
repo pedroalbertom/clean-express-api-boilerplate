@@ -1,16 +1,13 @@
-// File: src/config/DataSource.ts
-// Description: This file sets up the SQLite database connection using TypeORM.
-
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { User } from "../domain/entities/User";
+import { UserEntity } from "../infrastructure/database/entities/UserEntity";
 
 export const AppDataSource = new DataSource({
     type: "sqlite",
     database: "database.sqlite",
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [UserEntity],
     migrations: [],
     subscribers: [],
 });

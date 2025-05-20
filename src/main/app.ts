@@ -1,10 +1,3 @@
-// File: src/app.ts
-// Description: This file sets up the Express application.
-// It includes middleware for security, logging, and parsing JSON requests.
-// It also defines the routes for user-related operations and a health check endpoint.
-// It uses the error handler middleware to handle errors in the application.
-// It exports the configured Express application for use in other parts of the application.
-
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
