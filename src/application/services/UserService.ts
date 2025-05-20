@@ -25,7 +25,7 @@ export class UserService implements IUserService {
         if (existingUser)
             throw new AppError("Email already in use", 409);
 
-        const user = new User(0, data.name, data.email);
+        const user = new User(data.name, data.email);
         const saved = await this.userRepository.save(user);
 
         return {

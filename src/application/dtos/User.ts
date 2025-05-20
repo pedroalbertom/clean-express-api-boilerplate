@@ -9,7 +9,7 @@ export type UpdateUserInput = {
 };
 
 export type UserOutput = {
-    id: number;
+    id?: number;
     name: string;
     email: string;
 }

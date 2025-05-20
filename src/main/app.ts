@@ -12,7 +12,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api/users", UserRoutes);
+app.use("/user", UserRoutes);
 
 app.get("/health", (_req, res) => {
     res.status(200).json({ status: "ok" });

@@ -44,12 +44,12 @@ export class UserRepository implements IUserRepository {
     }
 
     private toDomain(entity: UserEntity): User {
-        return new User(entity.id, entity.name, entity.email);
+        return new User(entity.name, entity.email, entity.id);
     }
 
     private toEntity(user: User): UserEntity {
         const entity = new UserEntity();
-        entity.id = user.id;
+        entity.id = user.id!;
         entity.name = user.name;
         entity.email = user.email;
         return entity;
