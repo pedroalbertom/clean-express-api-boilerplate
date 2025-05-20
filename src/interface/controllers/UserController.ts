@@ -6,6 +6,7 @@ import {
     UserListOutput,
     UserOutput,
 } from "../../application/dtos/User";
+import { AppError } from "../../shared/errors/AppError";
 
 export class UserController {
     constructor(private userService: IUserService) { }
@@ -16,7 +17,10 @@ export class UserController {
             const user: UserOutput = await this.userService.createUser(data);
             return res.status(201).json(user);
         } catch (err: any) {
-            return res.status(400).json({ error: err.message });
+            if (err instanceof AppError) {
+                return res.status(err.statusCode).json({ error: err.message });
+            }
+            return res.status(500).json({ error: "Internal server error" });
         }
     }
 
@@ -39,7 +43,10 @@ export class UserController {
 
             return res.status(200).json(user);
         } catch (err: any) {
-            return res.status(400).json({ error: err.message });
+            if (err instanceof AppError) {
+                return res.status(err.statusCode).json({ error: err.message });
+            }
+            return res.status(500).json({ error: "Internal server error" });
         }
     }
 
@@ -52,7 +59,10 @@ export class UserController {
             const updatedUser: UserOutput = await this.userService.updateUser(id, data);
             return res.status(200).json(updatedUser);
         } catch (err: any) {
-            return res.status(400).json({ error: err.message });
+            if (err instanceof AppError) {
+                return res.status(err.statusCode).json({ error: err.message });
+            }
+            return res.status(500).json({ error: "Internal server error" });
         }
     }
 
@@ -64,7 +74,10 @@ export class UserController {
             await this.userService.deleteUser(id);
             return res.status(204).send();
         } catch (err: any) {
-            return res.status(400).json({ error: err.message });
+            if (err instanceof AppError) {
+                return res.status(err.statusCode).json({ error: err.message });
+            }
+            return res.status(500).json({ error: "Internal server error" });
         }
     }
 }

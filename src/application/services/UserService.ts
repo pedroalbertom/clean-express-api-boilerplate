@@ -8,16 +8,22 @@ import { isValidEmail } from "../../shared/utils/Email";
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
 import { IUserService } from "./IUserService";
+import { AppError } from "../../shared/errors/AppError";
+import { NotFoundError } from "../../shared/errors/NotFoundError";
 
 export class UserService implements IUserService {
     constructor(private userRepository: IUserRepository) { }
 
     async createUser(data: CreateUserInput): Promise<UserOutput> {
-        if (!data.name || !data.email) throw new Error("Name and email are required");
-        if (!isValidEmail(data.email)) throw new Error("Invalid email format");
+        if (!data.name || !data.email)
+            throw new AppError("Name and email are required", 400);
+
+        if (!isValidEmail(data.email))
+            throw new AppError("Invalid email format", 400);
 
         const existingUser = await this.userRepository.findByEmail(data.email);
-        if (existingUser) throw new Error("Email already in use");
+        if (existingUser)
+            throw new AppError("Email already in use", 409);
 
         const user = new User(0, data.name, data.email);
         const saved = await this.userRepository.save(user);
@@ -40,22 +46,25 @@ export class UserService implements IUserService {
     }
 
     async getUserById(id: number): Promise<UserOutput | null> {
-        if (!Number.isInteger(id) || id <= 0) throw new Error("Invalid user ID");
+        if (!Number.isInteger(id) || id <= 0)
+            throw new AppError("Invalid user ID", 400);
 
         const user = await this.userRepository.findById(id);
-        return user ? {
+        if (!user) throw new NotFoundError("User not found");
+
+        return {
             id: user.id,
             name: user.name,
             email: user.email,
-        } : null;
+        };
     }
 
     async updateUser(id: number, data: UpdateUserInput): Promise<UserOutput> {
         const user = await this.userRepository.findById(id);
-        if (!user) throw new Error("User not found");
+        if (!user) throw new NotFoundError("User not found");
 
         if (data.email && !isValidEmail(data.email)) {
-            throw new Error("Invalid email format");
+            throw new AppError("Invalid email format", 400);
         }
 
         user.name = data.name ?? user.name;
@@ -72,7 +81,7 @@ export class UserService implements IUserService {
 
     async deleteUser(id: number): Promise<void> {
         const user = await this.userRepository.findById(id);
-        if (!user) throw new Error("User not found");
+        if (!user) throw new NotFoundError("User not found");
 
         await this.userRepository.delete(id);
     }
